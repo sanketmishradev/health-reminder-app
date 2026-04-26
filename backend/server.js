@@ -18,7 +18,7 @@ app.get('/test', (req, res) => {
 // ADD THIS LINE — connects all reminder routes
 app.use('/api/reminders', require('./routes/reminderRoutes'))
 
-const PORT = 5000
+const PORT = process.env.PORT || 5000  
 
 app.listen(PORT, () => {
   console.log('Server is running on port 5000')
