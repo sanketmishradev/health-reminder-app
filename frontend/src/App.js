@@ -83,7 +83,15 @@ function App() {
     medicine: '💊', water: '💧', exercise: '🏃',
     meal: '🍽️', sleep: '😴', other: '📌'
   }
-
+// Converts "08:00" to "08:00 AM" and "14:00" to "02:00 PM"
+const formatTime = (time) => {
+  if (!time) return ''
+  const [hours, minutes] = time.split(':')
+  const hour = parseInt(hours)
+  const ampm = hour >= 12 ? 'PM' : 'AM'
+  const hour12 = hour % 12 || 12
+  return `${hour12}:${minutes} ${ampm}`
+}
   return (
     <div className="app">
       <h1>💊 Health Reminder App</h1>
@@ -149,7 +157,7 @@ function App() {
             className={`reminder-card ${editingId === reminder._id ? 'editing' : ''}`}
           >
             <h3>{categoryEmoji[reminder.category]} {reminder.title}</h3>
-            <p>⏰ Time: {reminder.time}</p>
+            <p>⏰ Time: {formatTime(reminder.time)}</p>
             <p>📁 Category: {reminder.category}</p>
             <p>🔁 Repeat: {reminder.repeat}</p>
             {reminder.notes && <p>📝 {reminder.notes}</p>}
