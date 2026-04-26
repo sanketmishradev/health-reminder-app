@@ -1,0 +1,172 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.app {
+  max-width: 650px;
+  margin: 0 auto;
+  padding: 30px 20px;
+}
+
+h1 {
+  text-align: center;
+  color: white;
+  font-size: 2.2rem;
+  margin-bottom: 30px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.form-card {
+  background: white;
+  border-radius: 20px;
+  padding: 25px;
+  margin-bottom: 30px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+}
+
+.form-card h2 {
+  color: #764ba2;
+  margin-bottom: 20px;
+  font-size: 1.3rem;
+}
+
+input, select {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 14px;
+  transition: border 0.3s;
+  outline: none;
+}
+
+input:focus, select:focus {
+  border-color: #764ba2;
+}
+
+.btn-add {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s;
+  margin-bottom: 10px;
+}
+
+.btn-add:hover {
+  transform: translateY(-2px);
+}
+
+/* Cancel button */
+.btn-cancel {
+  width: 100%;
+  padding: 12px;
+  background: #f0f0f0;
+  color: #666;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-cancel:hover {
+  background: #ddd;
+}
+
+.list-title {
+  color: white;
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+}
+
+.reminder-card {
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 15px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+  border-left: 5px solid #764ba2;
+  transition: transform 0.2s;
+}
+
+.reminder-card:hover {
+  transform: translateY(-3px);
+}
+
+/* Card being edited glows yellow */
+.reminder-card.editing {
+  border-left: 5px solid #f39c12;
+  box-shadow: 0 5px 20px rgba(243,156,18,0.4);
+}
+
+.reminder-card h3 {
+  color: #333;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
+.reminder-card p {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+}
+
+/* Buttons row */
+.card-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+/* Edit button */
+.btn-edit {
+  padding: 8px 18px;
+  background: #f39c12;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background 0.2s;
+}
+
+.btn-edit:hover {
+  background: #d68910;
+}
+
+.btn-delete {
+  padding: 8px 18px;
+  background: #ff4757;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background 0.2s;
+}
+
+.btn-delete:hover {
+  background: #cc0000;
+}
+
+.empty {
+  text-align: center;
+  color: rgba(255,255,255,0.8);
+  font-size: 1rem;
+  padding: 20px;
+}
