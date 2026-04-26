@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import './App.css'
 
+// Base URL of our backend API
+// Changed from localhost to Render deployed URL
+const API_URL = 'https://health-reminder-app-4.onrender.com'
+
 function App() {
   const [reminders, setReminders] = useState([])
   
@@ -8,14 +12,13 @@ function App() {
     title: '', time: '', category: 'medicine', repeat: 'daily', notes: ''
   })
 
-  // This stores the ID of the reminder being edited
-  // If null = we are ADDING, if has value = we are EDITING
   const [editingId, setEditingId] = useState(null)
 
   useEffect(() => { fetchReminders() }, [])
 
+  // GET - fetch all reminders from backend
   const fetchReminders = () => {
-    fetch('http://localhost:5000/api/reminders')
+    fetch(`${API_URL}/api/reminders`)
       .then(res => res.json())
       .then(data => setReminders(data))
   }
@@ -24,10 +27,8 @@ function App() {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
-  // When user clicks Edit button on a reminder card
-  // Fill the form with that reminder's data
   const handleEdit = (reminder) => {
-    setEditingId(reminder._id)   // remember which one we are editing
+    setEditingId(reminder._id)
     setForm({
       title:    reminder.title,
       time:     reminder.time,
@@ -35,11 +36,9 @@ function App() {
       repeat:   reminder.repeat,
       notes:    reminder.notes
     })
-    // Scroll to top so user sees the form
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  // Cancel editing — clear form and reset editingId
   const handleCancel = () => {
     setEditingId(null)
     setForm({ title: '', time: '', category: 'medicine', repeat: 'daily', notes: '' })
@@ -49,18 +48,18 @@ function App() {
     if (!form.title || !form.time) return alert('Please fill title and time!')
 
     if (editingId) {
-      // We are EDITING — send PUT request
-      fetch(`http://localhost:5000/api/reminders/${editingId}`, {
+      // PUT - update existing reminder
+      fetch(`${API_URL}/api/reminders/${editingId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form)
       }).then(() => {
         fetchReminders()
-        handleCancel() // clear form after update
+        handleCancel()
       })
     } else {
-      // We are ADDING — send POST request
-      fetch('http://localhost:5000/api/reminders', {
+      // POST - create new reminder
+      fetch(`${API_URL}/api/reminders`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form)
@@ -73,7 +72,8 @@ function App() {
 
   const handleDelete = (id) => {
     if (window.confirm('Are you sure you want to delete this reminder?')) {
-      fetch(`http://localhost:5000/api/reminders/${id}`, {
+      // DELETE - remove reminder
+      fetch(`${API_URL}/api/reminders/${id}`, {
         method: 'DELETE'
       }).then(() => fetchReminders())
     }
@@ -90,8 +90,6 @@ function App() {
 
       {/* FORM CARD */}
       <div className="form-card">
-
-        {/* Title changes based on Add or Edit mode */}
         <h2>{editingId ? '✏️ Edit Reminder' : '➕ Add New Reminder'}</h2>
 
         <input
@@ -128,12 +126,10 @@ function App() {
           onChange={handleChange}
         />
 
-        {/* Buttons change based on Add or Edit mode */}
         <button className="btn-add" onClick={handleSubmit}>
           {editingId ? '💾 Update Reminder' : '➕ Add Reminder'}
         </button>
 
-        {/* Cancel button only shows when editing */}
         {editingId && (
           <button className="btn-cancel" onClick={handleCancel}>
             ❌ Cancel
